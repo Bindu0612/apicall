@@ -15,7 +15,6 @@ class App extends Component {
     }
   }
 
-
   async fetchUsers() {
     const res = await axios.get("https://api.github.com/users")
     this.setState({
@@ -76,11 +75,11 @@ class App extends Component {
                         <div className="col-md-4">EventsUrl : {user.length > 0 && user[0].events_url}</div>
                       </div>
                     </div>
-                   
+
                   </div>
 
                 </div>
-               
+
 
               </div>
             </div>
