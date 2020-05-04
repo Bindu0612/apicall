@@ -1,0 +1,23 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "react",
+      "author": "asd"
+    },
+    {
+      "id": "2",
+      "title": "javascript",
+      "author": "ert"
+    },
+    {
+      "id": "3",
+      "title": "html",
+      "author": "sdfg"
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}
