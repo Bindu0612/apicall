@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Label, Input, Button } from 'reactstrap';
+import { Form,Button } from 'reactstrap';
 
 class Deletepost extends Component {
 
