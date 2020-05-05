@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 
-class App extends Component {
+class NewAp extends Component {
 
   constructor() {
     super();
@@ -16,32 +16,44 @@ class App extends Component {
 
 
   async fetchUsers(user) {
-    const res = await axios.get("https://api.github.com/users/" + user)
-    console.log(res);
     this.setState({
-      user: res.data,
-      userData: true,
+      loadingMessage: true
     })
-    console.log(res.data);
-  }
-
-  onEnter = (e) => {
-    e.preventDefault();
-    console.log("hi", e.target[0].value);
-    this.fetchUsers(e.target[0].value);
+    try {
+      const res = await axios.get("https://api.github.com/users/" + user)
+      console.log("API called", res);
+      this.setState({
+        user: res.data,
+        userData: true,
+        loadingMessage: false,
+      })
+    }
+    catch (error) {
+      console.log(error);
+      this.setState({ user: null, userData: true, loadingMessage: false, });
+    }
   }
 
   functionBlur = (event) => {
-    this.fetchUsers(event.target.value);
+    if (event.target.value != "") {
+      if (event.target.name === "form") {
+        event.preventDefault();
+        this.fetchUsers(event.target[0].value);
+        event.target[0].value = "";
+      }
+      else {
+        this.fetchUsers(event.target.value);
+        event.target.value = "";
+      }
+    }
   }
 
   render() {
-    // const user = this.state.user;
     console.log("user", this.state.user);
     const { userData, user, loadingMessage } = this.state;
     return (
       <>
-        <form name="form" onSubmit={this.onEnter}>
+        <form name="form" onSubmit={this.functionBlur}>
           <section>
             <div className="container">
 
@@ -49,8 +61,8 @@ class App extends Component {
 
                 <h1 className="text-center"> <span>  PROFILE HUB </span>  </h1>
 
-                <div className="col-md-4">
-                  <input type="text" name="textbox" className="form-control"
+                <div className="col-md-6">
+                  <input type="text" name="textbox" style={{ "background": "rgb(224, 235, 235)" }} className="form-control"
                     onBlur={this.functionBlur} placeholder=" Type Username + Enter" />
 
                   <div className="card profile-card-1">
@@ -62,14 +74,52 @@ class App extends Component {
 
                       <h2> {userData ? user != null ? user.login : "sorry, user not found!" : ""}</h2>
 
+
                       <h3>{loadingMessage && "Getting results for you…please wait."}</h3>
 
 
                       <div className="footer">
                         <div className="row">
-                          <div className="col-md-4"> Type : {user != null && user.type} </div>
-                          <div className="col-md-4">Id : {user != null && user.id} </div>
-                          <div className="col-md-4">EventsUrl : {user != null && user.events_url}</div>
+                          <div className="col-md-3">
+                            <div className="row">
+                              <div className="col-md-12">
+                                PublicRepos
+                                  </div>
+                              <div className="col-md-12">
+                                {user != null && user.public_repos}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-md-3">
+                            <div className="row">
+                              <div className="col-md-12">
+                                Followers
+                                    </div>
+                              <div className="col-md-12">
+                                {user != null && user.followers}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-md-3">
+                            <div className="row">
+                              <div className="col-md-12">
+                                Following
+                                    </div>
+                              <div className="col-md-12">
+                                {user != null && user.following}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-md-3">
+                            <div className="row">
+                              <div className="col-md-12">
+                                location
+                                    </div>
+                              <div className="col-md-12">
+                                {user != null && user.location}
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
@@ -87,4 +137,4 @@ class App extends Component {
 }
 
 
-export default App;
+export default NewAp;
