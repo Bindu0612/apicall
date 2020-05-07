@@ -80,7 +80,7 @@ class NewAp extends Component {
                       <h2> { userData ? user != null ? user.login : "sorry, user not found!" : "" }</h2>
                       <h2> { userData ? user != null ? user.location : "" : "" }</h2>
 
-                      <h3>{ loadingMessage && "Getting results for you…please wait." }</h3>
+                      <h3>{ loadingMessage && "Getting results for you… please wait." }</h3>
 
 
                       <div className="footer">
